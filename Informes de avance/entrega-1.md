@@ -26,9 +26,23 @@ En cuanto a los pull requests (PR), estos serán creados cada vez que los integr
 
 ## Configuración del repositorio en GitHub: archivos y directorios, estrategia de branching, estándares de nomenclatura. 
 
-Para trabajar de manera ordenada, se definió utilizar como base la estructura otorgada por los docentes. La estructura del proyecto está conformada por una carpeta "Código", donde se encuentran los dos proyectos que conforman la aplicación, es decir el backend y frontend. Además, el repositorio contiene una carpeta de "Documentación", donde se encuentran los informes de los autores originales del proyecto, así como los requerimientos que se les propuso inicialmente; una carpeta "Base de Datos", donde se encuentran los scripts para crear la base de datos y sus datos de prueba; y una carpeta exportations, donde se encuentran los archivos que se generan al exportar datos desde la aplicación.
+Para mantener un trabajo ordenado y colaborativo, se definió utilizar como base la estructura de carpetas proporcionada por los docentes. El repositorio está organizado de la siguiente manera:
 
-Por último, se creó un directorio donde se colocará la documentación de cada una de las entregas.
+Código: contiene los dos proyectos principales que conforman la aplicación, es decir, el backend y el frontend.
+
+Documentación: incluye los informes entregados por los autores originales del proyecto, así como los requerimientos iniciales definidos.
+
+Base de Datos: almacena los scripts necesarios para la creación de la base de datos y sus datos de prueba.
+
+Exportations: contiene los archivos generados al exportar datos desde la aplicación.
+
+Informes de avance: directorio creado para alojar la documentación correspondiente a cada una de las entregas del equipo.
+
+En cuanto a la estrategia de branching, para esta primera entrega no se implementó una metodología compleja, ya que el trabajo se centró principalmente en tareas de documentación. Por lo tanto, se creó una rama entrega-1, que será mergeada a main al final de la iteración.
+
+Para las siguientes iteraciones se adoptará la estrategia Git Flow, que implica la creación de una rama develop como base de desarrollo, desde la cual se derivarán ramas específicas para nuevas funcionalidades (feature), correcciones (hotfix) y otras necesidades del proyecto.
+
+Respecto a los estándares de nomenclatura, se acordó el uso de nombres descriptivos y consistentes tanto para las ramas como para los commits. Las ramas seguirán el formato <tipo>/<descripción-corta>, por ejemplo: feature/login-usuario o hotfix/fix-error-login. En cuanto a los mensajes de commit, se busca que sean breves pero claros, utilizando verbos en infinitivo.
 
 ## Análisis de deuda técnica y gestión de la calidad: definición de un modelo de calidad y un análisis de deuda técnica en base a ese modelo de calidad. 
 

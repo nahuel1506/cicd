@@ -14,7 +14,7 @@ Se definieron las siguientes ceremonias:
 
 ## Definición de un primer proceso de ingeniería.
 
-Como se mencionó previamente, el marco de gestión a utilizar es Kanban. En principio, se decidió comenzar con un tablero simple, con tres columnas: _Backlog_, _Doing_ y _Done_. En la columna Backlog se ubicarán todas las tareas a realizar, priorizadas por el PO en cada etapa. En la columna Doing se ubicarán las tareas que están en proceso, y en la columna _Done_ se ubicarán las tareas que fueron finalizadas.  Este tablero será gestionado desde GitHub Proyects y las columnas se irán modificando a medida que el proyecto avance. 
+Como se mencionó previamente, el marco de gestión a utilizar es Kanban. En principio, se decidió comenzar con un tablero simple, con tres columnas: _ToDo_, _Doing_ y _Done_. En la columna Backlog se ubicarán todas las tareas a realizar, priorizadas por el PO en cada etapa. En la columna Doing se ubicarán las tareas que están en proceso, y en la columna _Done_ se ubicarán las tareas que fueron finalizadas.  Este tablero será gestionado desde GitHub Proyects y las columnas se irán modificando a medida que el proyecto avance. 
 
 Para que una tarea pueda avanzar de una columna a otra, se definieron los siguientes criterios:
 -	Backlog a Doing: La tarea debe estar asignada a un responsable y el PO debe validar que la tarea esté lista para comenzar.
@@ -36,7 +36,7 @@ Base de Datos: almacena los scripts necesarios para la creación de la base de d
 
 Exportations: contiene los archivos generados al exportar datos desde la aplicación.
 
-Informes de avance: directorio creado para alojar la documentación correspondiente a cada una de las entregas del equipo.
+Informes de avance: directorio creado para colocar la documentación correspondiente a cada una de las entregas del equipo.
 
 En cuanto a la estrategia de branching, para esta primera entrega no se implementó una metodología compleja, ya que el trabajo se centró principalmente en tareas de documentación. Por lo tanto, se creó una rama entrega-1, que será mergeada a main al final de la iteración.
 
@@ -45,6 +45,20 @@ Para las siguientes iteraciones se adoptará la estrategia Git Flow, que implica
 Respecto a los estándares de nomenclatura, se acordó el uso de nombres descriptivos y consistentes tanto para las ramas como para los commits. Las ramas seguirán el formato <tipo>/<descripción-corta>, por ejemplo: feature/login-usuario o hotfix/fix-error-login. En cuanto a los mensajes de commit, se busca que sean breves pero claros, utilizando verbos en infinitivo.
 
 ## Análisis de deuda técnica y gestión de la calidad: definición de un modelo de calidad y un análisis de deuda técnica en base a ese modelo de calidad. 
+
+### Modelo de Calidad
+El sistema desarrollado por la startup tiene como objetivo principal facilitar la búsqueda y adquisición de medicamentos, así como la gestión interna de farmacias, con usuarios que poseen distintos perfiles. Se decidió adoptar un modelo de calidad centrado en los siguientes atributos:
+
+Usabilidad
+El sistema será utilizado por usuarios no técnicos, como empleados y dueños de farmacia, y también por usuarios anónimos que acceden desde la web. Por lo tanto, la interfaz debe ser intuitiva, clara y fácil de navegar. Para garantizar esto, se aplican criterios como:
+
+- Accesibilidad de funciones importantes: por ejemplo, el botón de login en la página inicial o la posibilidad de volver a la página anterior.
+
+- Flujos de interacción consistentes, con validaciones claras y mensajes de error comprensibles.
+
+Seguridad
+Se requiere un control de acceso seguro. Solo los usuarios autenticados y autorizados pueden realizar ciertas acciones según su rol (ej.: solo empleados pueden dar de alta medicamentos). Se previene el acceso no autorizado a funcionalidades sensibles mediante mecanismos de autenticación y autorización.
+
 
 
 ## Definición de issues y clasificación.

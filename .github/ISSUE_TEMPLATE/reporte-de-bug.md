@@ -5,13 +5,15 @@ about: Usá esta plantilla para reportar errores, comportamientos inesperados o 
 title: ''
 labels: bug
 assignees: ''
+type: Bug
 
 ---
 
 **Descripción del bug**
 
-**To Reproduce**
-Pasos para reproducir el comportamiento:
+
+**Para reproducir el error**
+
 1. Ir a '...'
 2. Hacer click en '....'
 3. Deslizarse hacia abajo hasta '....'
@@ -22,5 +24,6 @@ Pasos para reproducir el comportamiento:
 
 
 **Capturas de pantalla (opcional)**
+
 
 **Notas adicionales (opcional)**

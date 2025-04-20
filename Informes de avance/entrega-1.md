@@ -4,17 +4,17 @@
 
 Para definir los roles y ceremonias del marco de gestión, se tomaron algunos elementos del marco de gestión SCRUM. Como lo indica la letra, todos los miembros del equipo tomarán el rol de desarrolladores y testers en todas las etapas. Por otro lado, se definió un Product Owner para cada entrega, quien definirá y priorizará las tareas a realizar, y se asegurará que las tareas realizadas estén alineadas con lo solicitado por el usuario. En esta primera entrega, este rol lo asumirá Sofía. 
 
-Además, el equipo definió un rol de facilitador o líder de flujo. Este rol se encarga de que el equipo pueda avanzar sin problemas, promoviendo un flujo de trabajo continuo. Las responsabilidades principales del facilitador es detectar cuellos de botella, fomentar la comunicación y organización del equipo y mantener actualizado el tablero visibilizando el estado real de las tareas. 
-
 Se definieron las siguientes ceremonias:
 -	Reunión semanal: Elegir tareas a hacer, asignar responsables y ordenar prioridades. 
 -	Revisión de entrega: Al finalizar cada entrega validar con el PO los avances realizados. 
 -	Retrospectiva: Al final de cada entrega reflexionar como equipo, para ver qué funcionó, qué no y qué mejorar.
 -	Reuniones esporádicas: En caso de ser necesario, ya sea por bloqueos, dudas o algún problema que surja, cualquier integrante del equipo puede solicitar realizar una reunión con el resto del equipo. 
 
+En el momento de las reuniones, se utilizó la extensión de Visual Studio Code: Live Share, para ir documentando en simultaneo.
+
 ## Definición de un primer proceso de ingeniería.
 
-Como se mencionó previamente, el marco de gestión a utilizar es Kanban. En principio, se decidió comenzar con un tablero simple, con tres columnas: _ToDo_, _Doing_ y _Done_. En la columna Backlog se ubicarán todas las tareas a realizar, priorizadas por el PO en cada etapa. En la columna Doing se ubicarán las tareas que están en proceso, y en la columna _Done_ se ubicarán las tareas que fueron finalizadas.  Este tablero será gestionado desde GitHub Proyects y las columnas se irán modificando a medida que el proyecto avance. 
+Como se mencionó previamente, el marco de gestión a utilizar es Kanban. En principio, se decidió comenzar con un tablero simple, con tres columnas: _To Do_, _Doing_ y _Done_. En la columna Backlog se ubicarán todas las tareas a realizar, priorizadas por el PO en cada etapa. En la columna Doing se ubicarán las tareas que están en proceso, y en la columna _Done_ se ubicarán las tareas que fueron finalizadas.  Este tablero será gestionado desde GitHub Proyects y las columnas se irán modificando a medida que el proyecto avance. 
 
 Para que una tarea pueda avanzar de una columna a otra, se definieron los siguientes criterios:
 -	Backlog a Doing: La tarea debe estar asignada a un responsable y el PO debe validar que la tarea esté lista para comenzar.
@@ -48,7 +48,7 @@ Respecto a los estándares de nomenclatura, se acordó el uso de nombres descrip
 
 ### Modelo de Calidad
 
-El sistema desarrollado por la startup tiene como objetivo principal facilitar la búsqueda y adquisición de medicamentos, así como la gestión interna de farmacias, con usuarios que poseen distintos perfiles. Por esta razón, se decidió adoptar un modelo de calidad centrado en los siguientes atributos, derivados de las normas ISO/IEC 25010:
+El sistema desarrollado por la startup tiene como objetivo principal facilitar la búsqueda y adquisición de medicamentos, así como la gestión interna de farmacias, con usuarios que poseen distintos perfiles. Por esta razón, se decidió adoptar un modelo de calidad centrado en los siguientes atributos, derivados de las normas [ISO/IEC 25010](https://iso25000.com/index.php/normas-iso-25000/iso-25010?start=6):
 
 **Capacidad de interacción y/o usabilidad**
 
@@ -60,13 +60,44 @@ El sistema será utilizado por usuarios no técnicos, como empleados y dueños d
 
 - Inclusividad: el sistema debe ser accesible para personas con discapacidades, por lo que se deben seguir las pautas de accesibilidad web (WCAG). Para ello, se utilizarán herramientas como WAVE y Lighthouse para verificar que la aplicación cumpla con los estándares de accesibilidad.
 
-**Seguridad**
+**Mantenibilidad** 
 
-Se busca que el sistema tenga un control de acceso seguro en el que solo los usuarios autenticados y autorizados pueden realizar ciertas acciones según su rol (ej.: solo empleados pueden dar de alta medicamentos). También, es importante que se prevenga el acceso no autorizado a funcionalidades sensibles mediante mecanismos de autenticación y autorización.
+Se busca que el sistema tenga la capacidad para ser modificado de forma eficiente ante cambios y mejoras.
+
+Para asegurar una buena mantenibilidad se tendrán en cuenta los siguientes criterios:
+
+- Modificabilidad: capacidad del producto que permite que sea modificado de froma efectiva sin degradar la calidad. Esto incluye el uso de buenas prácticas como la separación de responsabilidades y la división en capas. 
+
+- Legibilidad y simplicidad del código: Se espera un código claro, limpio y fácil de entender. Esto implica métodos cortos, nombres de variables claros, evitar código duplicado y mantener una organización coherente de los archivos y carpetas. 
+
+- Capacidad para ser probado: El sistema debe estar acompañado de una buena base de pruebas que permitan verificar el correcto funcionamiento del código luego de cualquier modificación. 
+ 
 
 ### Análisis de la deuda técnica
 
+Teniendo en cuenta el modelo de calidad definido anteriormente, se identificaron algunas mejoras a tener en cuenta:
 
+**Usabilidad** 
+
+Como se mencionó anteriormente, tanto la operabilidad como la aprendabilidad y accesiblidad son atributos muy importantes. Al analizar el sistema desde el punto de vista del cliente, se detectaron varias mejoras a realizar en este sentido.
+
+En cuanto a la interacción en general, hay mensajes de error que no son muy claros hacia el usuario. A su vez, algunos formularios no tienen buenas descripciones en sus campos, lo que afecta negativamente la usabilidad. El flujo también se ve afectado por la operablidad incompleta, es decir que faltan elementos básicos como el botón de regresar o modales de confirmación antes de enviar formularios.
+
+Por otro lado, la accesibilidad también es un punto a mejorar en la aplicación. Se ejecutó la herramienta WAVE en algunas pantallas, y en todas ellas se detectaron errores de contraste y falta de etiquetas en algunos campos.
+
+![Análisis de usabilidad](imagenes/usabilidad.png)
+![Análisis de usablidad](imagenes/usabilidad2.png)
+
+Los puntos mencionados son factores que afectan el aprendizaje inicial del sistema por parte de nuevos usuarios y comprometen la experiencia de usuarios con discapacidades.
+
+**Mantenibilidad**
+
+Se identificaron varios apectos que afectan la calidad del software. En primer lugar se detectó un test que no funciona correctamente.
+Ademas la cobertura general de pruebas no alcanza el 100%, lo que indica que hay código no utilizado o no testeado. Un ejemplo crítico es el ExportManager que actualmente no cuenta con ninguna cobertura de pruebas. 
+
+Por otra parte, se observa una complejidad excesiva en ciertos métodos de los managers, los cuales presentan múltiples estructuras de control anidadas (if-else) que dificultan la comprensión del código. Para mejorar esto, se recomienda abstraer las validaciones en metodos mas pequeños promueve una mayor legibilidad. 
+
+En cuanto al diseño de las entidades, se identifica una falta de responsabilidad propia, la mayoría delega las validaciones de sus atributos a los managers, mientras que otras tienen un método interno para este fin. Se observa que en muchos casos las entidades estan siendo creadas directamente desde los controllers, lo que va en contra del principio de responsabilidad unica. Esta lógica debería trasladarse a los managers.
 
 ## Definición de issues y clasificación.
 
@@ -85,6 +116,12 @@ Dado que en esta primera entrega no se realizaron modificaciones en el código, 
 
 Por otro lado, en todas las reuniones realizadas estuvo presente el PO, Sofía, que validó los avances y estuvo de acuerdo con todos los puntos definidos anteriormente. 
 
-![Evidencia de revisión con el PO](evidenciaPO.png)
+![Evidencia de revisión con el PO](imagenes/evidenciaPO.png)
 
 ## Retrospectiva y acciones de mejora
+
+En esta primera entrega, el equipo logró seguir los roles y ceremonias definidas. El uso del tablero Kanban en GitHub Projects fue de gran utilidad para que todos los integrantes puedan ver el estado del flujo de trabajo en cualquier momento y poder aportar a las tareas de manera simple. 
+
+Las plantillas para los issues y los tipos definidas fueron utilizados correctamente, pero se podría implementar un sistema de etiquetas para especificar aún más de qué tratan los issues. 
+
+En la próxima entrega se espera realizar la asignación de las tareas a los integrantes del equipo, configurar los pipelines de CI/CD, y comenzar a trabajar en la implementación de las mejoras definidas en el análisis de deuda técnica y los bugs.

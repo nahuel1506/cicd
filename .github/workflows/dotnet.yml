@@ -7,7 +7,7 @@ on:
     branches: [ "main" ]
 
 jobs:
-  build-dotnet:
+  dotnet:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
@@ -18,33 +18,14 @@ jobs:
     - name: Restore dependencies
       working-directory: Código/Backend
       run: dotnet restore
-    - name: Build .NET
+    - name: Build
       working-directory: Código/Backend
       run: dotnet build --no-restore
-    - name: Save build output
-      uses: actions/upload-artifact@v3
-      with:
-        name: dotnet-build
-        path: Código/Backend/bin
-
-  test-dotnet:
-    runs-on: ubuntu-latest
-    needs: build-dotnet
-    steps:
-    - uses: actions/checkout@v4
-    - name: Download build output
-      uses: actions/download-artifact@v3
-      with:
-        name: dotnet-build
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v4
-      with:
-        dotnet-version: 6.0.x
-    - name: Test .NET
+    - name: Test
       working-directory: Código/Backend
       run: dotnet test --no-build --verbosity normal
 
-  build-angular:
+  angular:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
@@ -58,16 +39,6 @@ jobs:
     - name: Build Angular
       working-directory: Código/Frontend
       run: npm run build
-
-  test-angular:
-    runs-on: ubuntu-latest
-    needs: build-angular
-    steps:
-    - uses: actions/checkout@v4
-    - name: Setup Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: 16
     - name: Test Angular
       working-directory: Código/Frontend
       run: npm run test

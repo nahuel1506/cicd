@@ -1,4 +1,4 @@
-name: .NET
+name: CI/CD
 
 on:
   push:
@@ -7,9 +7,8 @@ on:
     branches: [ "main" ]
 
 jobs:
-  build:
+  build-dotnet:
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v4
     - name: Setup .NET
@@ -19,20 +18,47 @@ jobs:
     - name: Restore dependencies
       working-directory: Código/Backend
       run: dotnet restore
-    - name: Build
+    - name: Build .NET
       working-directory: Código/Backend
       run: dotnet build --no-restore
 
-  test:
+  test-dotnet:
     runs-on: ubuntu-latest
-    needs: build
-
+    needs: build-dotnet
     steps:
     - uses: actions/checkout@v4
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: 6.0.x
-    - name: Test
+    - name: Test .NET
       working-directory: Código/Backend
       run: dotnet test --no-build --verbosity normal
+
+  build-angular:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: 16 # Compatible con Angular 14
+    - name: Install dependencies
+      working-directory: Código/Frontend
+      run: npm install
+    - name: Build Angular
+      working-directory: Código/Frontend
+      run: npm run build
+
+  test-angular:
+    runs-on: ubuntu-latest
+    needs: build-angular
+    steps:
+    - uses: actions/checkout@v4
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: 16
+    - name: Test Angular
+      working-directory: Código/Frontend
+      run: npm run test

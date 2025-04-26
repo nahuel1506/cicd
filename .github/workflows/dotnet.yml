@@ -25,7 +25,7 @@ jobs:
       run: dotnet restore
    
     - name: Build
-      run: dotnet build ./Código/Backend/PharmaGo.WebApi --configuration Release
+      run: dotnet build ./Código/Backend/ --configuration Release
    
     - name: Setup Node.js
       uses: actions/setup-node@v4
@@ -42,7 +42,7 @@ jobs:
 
     # Smoke test
     - name: Smoke Test
-      working-directory: ./Código/Backend/PharmaGo.WebApi
+      working-directory: ./Código/Backend/
       run: dotnet run
       
     # Unit tests and coverage

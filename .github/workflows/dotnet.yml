@@ -42,7 +42,7 @@ jobs:
 
     # Smoke test
     - name: Smoke Test
-      working-directory: ./Código/Backend
+      working-directory: ./Código/Backend/PharmaGo.WebApi
       run: dotnet run
       
     # Unit tests and coverage

@@ -1,4 +1,4 @@
-name: CI/CD
+name: CI/CD PharmaGo
 
 on:
   push:
@@ -7,38 +7,59 @@ on:
     branches: [ "main" ]
 
 jobs:
-  dotnet:
+  build-and-test-back:
+
     runs-on: ubuntu-latest
+
     steps:
     - uses: actions/checkout@v4
+
+    # Build
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: 6.0.x
+   
     - name: Restore dependencies
-      working-directory: Código/Backend
+      working-directory: ./Código/Backend/
       run: dotnet restore
+   
     - name: Build
-      working-directory: Código/Backend
-      run: dotnet build --no-restore
-    - name: Test
-      working-directory: Código/Backend
-      run: dotnet test --no-build --verbosity normal
-
-  angular:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v4
+      run: dotnet build ./Código/Backend/PharmaGo.WebApi --configuration Release
+   
     - name: Setup Node.js
-      uses: actions/setup-node@v3
+      uses: actions/setup-node@v4
       with:
-        node-version: 16 # Compatible con Angular 14
-    - name: Install dependencies
-      working-directory: Código/Frontend
+        node-version: '16'
+   
+    - name: Install frontend dependencies
+      working-directory: ./Código/Frontend
       run: npm install
+
     - name: Build Angular
-      working-directory: Código/Frontend
-      run: npm run build
-    - name: Test Angular
-      working-directory: Código/Frontend
-      run: npm run test
+      working-directory: ./Código/Frontend
+      run: npm run build --prod
+
+    # Smoke test
+    - name: Smoke Test
+      run: dotnet run
+      
+    # Unit tests and coverage
+    - name: Test
+      run: dotnet test ./Código/Backend/PharnaGo.Test --no-build --collect:"XPlat Code Coverage"
+
+    - name: Install ReportGenerator
+      run: dotnet tool install --global dotnet-reportgenerator-globaltool
+
+    - name: Generate coverage report
+      run: |
+        reportgenerator \
+          -reports:**/coverage.cobertura.xml \
+          -targetdir:coveragereport \
+          -reporttypes:Html
+    
+    - name: Upload coverage report as artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: coverage-report
+        path: coveragereport

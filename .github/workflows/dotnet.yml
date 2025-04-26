@@ -42,6 +42,7 @@ jobs:
 
     # Smoke test
     - name: Smoke Test
+      working-directory: ./Código/Backend
       run: dotnet run
       
     # Unit tests and coverage
